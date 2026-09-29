@@ -391,3 +391,86 @@ def convert_ph1100_partArr4(partArr4):
     # fmt: on
 
     return result
+
+
+def convert_pv50_colex(registers):
+    """Convert CoLex sequential Modbus map for MUST PV50-5248 PRO."""
+
+    if registers is None:
+        return None
+
+    result = {}
+
+    # Identification.
+    # CoLex does not currently expose the native MUST identification registers.
+    result["InverterMachineType"] = "pv50_colex"
+    result["InverterSerialNumber"] = 1
+
+    # CoLex 40001-40010 -> offsets 0-9
+    result["DCRelayState"] = int16(0, registers)
+    result["ChargerErrorMessage"] = error_bits(1, registers, CHARGER_ERROR)
+    result["ChargerPower"] = uint16(2, registers)
+    result["ArrowFlag"] = uint16(3, registers)
+    result["PGrid"] = int16(4, registers)
+    result["GridRelayState"] = int16(5, registers)
+    result["PLoad"] = uint16(6, registers)
+    result["LoadRelayState"] = int16(7, registers)
+    result["PvVoltage"] = uint16(8, registers)
+    result["ChargerWarningMessage"] = error_bits(9, registers, CHARGER_WARNING)
+
+    # CoLex 40011-40020 -> offsets 10-19
+    result["WorkState"] = uint16(10, registers)
+    result["BusVoltage"] = uint16(11, registers)
+    result["EarthRelayState"] = int16(12, registers)
+    result["N_LineRelayState"] = int16(13, registers)
+    result["RatedPowerW"] = uint16(14, registers)
+    result["GridCurrent"] = uint16(15, registers)
+    result["GridVoltage"] = uint16(16, registers)
+    result["LoadCurrent"] = uint16(17, registers)
+    result["LoadPercent"] = uint16(18, registers)
+    result["ChargerWorkstate"] = uint16(19, registers)
+
+    # CoLex 40021-40030 -> offsets 20-29
+    result["BattPower"] = int16(20, registers)
+    result["AcRadiatorTemperature"] = int16(21, registers)
+    result["DcRadiatorTemperature"] = int16(22, registers)
+    result["InverterErrorMessage"] = error_bits(23, registers, INVERTER_ERROR)
+    result["InverterErrorMessage3Raw"] = uint16(25, registers)
+    result["GridFrequency"] = uint16(26, registers)
+    result["PInverter"] = int16(27, registers)
+    result["InverterRelayState"] = int16(28, registers)
+    result["BattCurrent"] = int16(29, registers)
+
+    # CoLex 40031-40040 -> offsets 30-39
+    result["InverterBatteryVoltage"] = uint16(30, registers)
+    result["ControlCurrent"] = uint16(31, registers)
+    result["InverterCurrent"] = uint16(32, registers)
+    result["InverterVoltage"] = uint16(33, registers)
+    result["ChargerCurrent"] = uint16(34, registers)
+    result["InverterWarningMessage"] = error_bits(35, registers, INVERTER_WARNING)
+    result["InverterWarningMessage2Raw"] = uint16(36, registers)
+    result["BatteryVoltage"] = uint16(37, registers)
+    result["SGrid"] = uint16(38, registers)
+    result["Qgrid"] = int16(39, registers)
+
+    # CoLex 40041-40049 -> offsets 40-48
+    result["InverterFrequency"] = uint16(40, registers)
+    result["Sload"] = uint16(41, registers)
+    result["Qload"] = int16(42, registers)
+    result["BattVolGrade"] = uint16(43, registers)
+    result["SInverter"] = uint16(44, registers)
+    result["Qinverter"] = int16(45, registers)
+    result["ExternalTemperature"] = int16(46, registers)
+    result["RadiatorTemperature"] = int16(47, registers)
+    result["TransformerTemperature"] = int16(48, registers)
+
+    # CoLex RW parameters 40050-40055 -> offsets 49-54
+    result["EnergyUseMode"] = uint16(49, registers)
+    result["GridMaxChargerCurrentSet"] = uint16(50, registers)
+    result["ChargerSourcePriority"] = uint16(51, registers)
+    result["BatteryStopChargingVoltage"] = uint16(52, registers)
+    result["MaxCombineChargerCurrent"] = uint16(53, registers)
+    result["BatteryStopDischargingVoltage"] = uint16(54, registers)
+
+    return result
+

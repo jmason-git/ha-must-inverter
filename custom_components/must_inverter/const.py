@@ -22,8 +22,9 @@ DEFAULT_DEVICE_ID = 0x04
 MODEL_PV1800 = "pv1800"  # Base model
 MODEL_PV1900 = "pv1900"
 MODEL_PH1100 = "ph1100"
+MODEL_PV50_COLEX = "pv50_colex"
 
-SUPPORTED_MODELS = [MODEL_PV1800, MODEL_PV1900, MODEL_PH1100]
+SUPPORTED_MODELS = [MODEL_PV1800, MODEL_PV1900, MODEL_PH1100, MODEL_PV50_COLEX]
 
 
 class Sensor(NamedTuple):
@@ -166,6 +167,71 @@ SENSORS_ARRAY = [
     Sensor(25273, "BattPower",                       None,    "W",      Platform.SENSOR,               SensorDeviceClass.POWER,           True,  ),
     Sensor(25274, "BattCurrent",                     None,    "A",      Platform.SENSOR,               SensorDeviceClass.CURRENT,         True,  ),
     Sensor(25277, "RatedPowerW",                     None,    "W",      Platform.SENSOR,               SensorDeviceClass.POWER,           False, ),
+]
+
+PV50_COLEX_SENSORS = [
+    # CoLex 40001-40010
+    Sensor(0,  "DCRelayState",                       None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(1,  "ChargerErrorMessage",                None, None,        Platform.SENSOR,                None,                              True),
+    Sensor(2,  "ChargerPower",                       None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(4,  "PGrid",                              None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(5,  "GridRelayState",                     None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(6,  "PLoad",                              None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(7,  "LoadRelayState",                     None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(8,  "PvVoltage",                          0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(9,  "ChargerWarningMessage",              None, None,        Platform.SENSOR,                None,                              True),
+
+    # CoLex 40011-40020
+    Sensor(10, "WorkState",                          None, None,        Platform.SENSOR,                SensorDeviceClass.ENUM,            True),
+    Sensor(11, "BusVoltage",                         0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(12, "EarthRelayState",                    None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(13, "N_LineRelayState",                   None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(14, "RatedPowerW",                        None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(15, "GridCurrent",                        0.1,  "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+    Sensor(16, "GridVoltage",                        0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(17, "LoadCurrent",                        0.1,  "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+    Sensor(18, "LoadPercent",                        None, "%",         Platform.SENSOR,                None,                              True),
+    Sensor(19, "ChargerWorkstate",                   None, None,        Platform.SENSOR,                SensorDeviceClass.ENUM,            True),
+
+    # CoLex 40021-40030
+    Sensor(20, "BattPower",                          None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(21, "AcRadiatorTemperature",              None, "°C",        Platform.SENSOR,                SensorDeviceClass.TEMPERATURE,     True),
+    Sensor(22, "DcRadiatorTemperature",              None, "°C",        Platform.SENSOR,                SensorDeviceClass.TEMPERATURE,     True),
+    Sensor(23, "InverterErrorMessage",               None, None,        Platform.SENSOR,                None,                              True),
+    Sensor(26, "GridFrequency",                      0.01, "Hz",        Platform.SENSOR,                SensorDeviceClass.FREQUENCY,       True),
+    Sensor(27, "PInverter",                          None, "W",         Platform.SENSOR,                SensorDeviceClass.POWER,           True),
+    Sensor(28, "InverterRelayState",                 None, None,        Platform.BINARY_SENSOR,         BinarySensorDeviceClass.POWER,     True),
+    Sensor(29, "BattCurrent",                        None, "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+
+    # CoLex 40031-40040
+    Sensor(30, "InverterBatteryVoltage",             0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(31, "ControlCurrent",                     0.1,  "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+    Sensor(32, "InverterCurrent",                    0.1,  "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+    Sensor(33, "InverterVoltage",                    0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(34, "ChargerCurrent",                     0.1,  "A",         Platform.SENSOR,                SensorDeviceClass.CURRENT,         True),
+    Sensor(35, "InverterWarningMessage",             None, None,        Platform.SENSOR,                None,                              True),
+    Sensor(37, "BatteryVoltage",                     0.1,  "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(38, "SGrid",                              None, "VA",        Platform.SENSOR,                SensorDeviceClass.APPARENT_POWER,  True),
+    Sensor(39, "Qgrid",                              None, "var",       Platform.SENSOR,                SensorDeviceClass.REACTIVE_POWER,  True),
+
+    # CoLex 40041-40049
+    Sensor(40, "InverterFrequency",                  0.01, "Hz",        Platform.SENSOR,                SensorDeviceClass.FREQUENCY,       True),
+    Sensor(41, "Sload",                              None, "VA",        Platform.SENSOR,                SensorDeviceClass.APPARENT_POWER,  True),
+    Sensor(42, "Qload",                              None, "var",       Platform.SENSOR,                SensorDeviceClass.REACTIVE_POWER,  True),
+    Sensor(43, "BattVolGrade",                       None, "V",         Platform.SENSOR,                SensorDeviceClass.VOLTAGE,         True),
+    Sensor(44, "SInverter",                          None, "VA",        Platform.SENSOR,                SensorDeviceClass.APPARENT_POWER,  True),
+    Sensor(45, "Qinverter",                          None, "var",       Platform.SENSOR,                SensorDeviceClass.REACTIVE_POWER,  True),
+    Sensor(46, "ExternalTemperature",                None, "°C",        Platform.SENSOR,                SensorDeviceClass.TEMPERATURE,     True),
+    Sensor(47, "RadiatorTemperature",                None, "°C",        Platform.SENSOR,                SensorDeviceClass.TEMPERATURE,     True),
+    Sensor(48, "TransformerTemperature",             None, "°C",        Platform.SENSOR,                SensorDeviceClass.TEMPERATURE,     True),
+
+    # CoLex 40050-40055 - RW
+    Sensor(49, "EnergyUseMode",                      None, None,        Platform.SELECT,               None,                              True),
+    Sensor(50, "GridMaxChargerCurrentSet",           0.1,  "A",         Platform.NUMBER,               NumberDeviceClass.CURRENT,         True),
+    Sensor(51, "ChargerSourcePriority",              None, None,        Platform.SELECT,               None,                              True),
+    Sensor(52, "BatteryStopChargingVoltage",         0.1,  "V",         Platform.NUMBER,               NumberDeviceClass.VOLTAGE,         True),
+    Sensor(53, "MaxCombineChargerCurrent",           0.1,  "A",         Platform.NUMBER,               NumberDeviceClass.CURRENT,         True),
+    Sensor(54, "BatteryStopDischargingVoltage",      0.1,  "V",         Platform.NUMBER,               NumberDeviceClass.VOLTAGE,         True),
 ]
 
 PV1900_SENSORS = [
@@ -311,6 +377,13 @@ RANGES = {
     "GridCurrentC":                   lambda data: Range(0,     0xFFFF, 1   ),
     "LoadCurrentC":                   lambda data: Range(0,     0xFFFF, 1   ),
 }
+
+PV50_COLEX_RANGES = {
+    "GridMaxChargerCurrentSet":       lambda data: Range(1,     80,     0.1 ),
+    "MaxCombineChargerCurrent":       lambda data: Range(1,     100,    0.1 ),
+    "BatteryStopChargingVoltage":     lambda data: Range(44.0,  58.0,   0.1 ),
+    "BatteryStopDischargingVoltage":  lambda data: Range(44.0,  58.0,   0.1 ),
+}
 # fmt: on
 
 INVERTER_ERROR = [
@@ -330,7 +403,7 @@ INVERTER_ERROR = [
     "Inverter output current sensor error",
     "Inverter grid current sensor error",
     "Inverter load current sensor error",
-    "Inverter grid over current error"
+    "Inverter grid over current error",
     # 2
     "Inverter radiator over temperature",
     "Solar charger battery voltage class error",
@@ -348,8 +421,23 @@ INVERTER_ERROR = [
     "Inverter control current sensor error",
     "Inverter output voltage is too low",
     "",
-    # 3
-    # Unknown
+    # 3 - Unknown bits
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
 ]
 
 INVERTER_WARNING = [
@@ -364,6 +452,23 @@ INVERTER_WARNING = [
     "Solar charger stops due to over load.",
     "Solar charger over temperature",
     "PV charger communication error ",
+    "",
+    "",
+    "",
+    "",
+    "",
+    # WarningMessage2 - unknown bits
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
     "",
     "",
     "",
@@ -399,6 +504,9 @@ def get_sensors_for_model(model: str) -> list:
     PV1800: Base sensors only
     PV1900: Base sensors + PV2 and extended battery monitoring
     """
+    if model == MODEL_PV50_COLEX:
+        return PV50_COLEX_SENSORS
+
     if model == MODEL_PH1100:
         return PH1100_SENSORS
 

@@ -161,7 +161,8 @@
         "autodetect": "Auto Detect",
         "pv1800": "PV1800 Series",
         "pv1900": "PV1900 Series",
-        "ph1100": "PH1100 Series"
+        "ph1100": "PH1100 Series",
+        "pv50_colex": "PV50-5248 PRO (CoLex Modbus TCP)"
       }
     },
     "mode": {

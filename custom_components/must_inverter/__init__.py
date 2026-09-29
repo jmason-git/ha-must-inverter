@@ -38,6 +38,7 @@ from .const import (
     get_sensors_for_model,
     MODEL_PV1900,
     MODEL_PH1100,
+    MODEL_PV50_COLEX,
 )
 
 from .mapper import (
@@ -52,6 +53,7 @@ from .mapper import (
     convert_partArr6,
     convert_battery_status,
     convert_pv_data,
+    convert_pv50_colex,
 )
 # from .utils.register_monitor import RegisterMonitor
 
@@ -310,6 +312,12 @@ class MustInverter:
                 (20001, 20003, convert_ph1100_partArr3),  # Inverter Control Messages
                 (25225, 25339, convert_ph1100_partArr4),  # Inverter Display Messages
             ]
+
+        elif self.model == MODEL_PV50_COLEX:
+            registersAddresses = [
+                (0, 54, convert_pv50_colex),  # CoLex Holding Registers 40001-40055
+            ]
+
         else:
             # Base register ranges for all models
             registersAddresses = [

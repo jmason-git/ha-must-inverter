@@ -53,7 +53,13 @@ class MustInverterSelect(SelectEntity):
     @property
     def current_option(self):
         if self._key in self._inverter.data:
-            return self._options[self._inverter.data[self._key]]
+            value = self._inverter.data[self._key]
+
+        if isinstance(value, int) and 0 <= value < len(self._options):
+            option = self._options[value]
+            return option if option else None
+
+        return None
 
     async def async_select_option(self, option: str) -> None:
         value = self._options.index(option)
