@@ -33,6 +33,13 @@ class MustInverterSensor(SensorEntity):
         self._key = sensor_info.name
         self._coeff = sensor_info.coeff or 1
 
+        if self._coeff == 0.01:
+            self._attr_suggested_display_precision = 2
+        elif self._coeff == 0.1:
+            self._attr_suggested_display_precision = 1
+        elif self._coeff == 1:
+            self._attr_suggested_display_precision = 0
+
         self._attr_has_entity_name = True
         self._attr_unique_id = f"{self._inverter.data['InverterSerialNumber']}_{self._key}"
         self._attr_translation_key = self._key.lower()
