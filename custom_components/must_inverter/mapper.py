@@ -21,6 +21,11 @@ def uint16(address, registers):
 def version(address, registers):
     return f"{registers[address] // 10000}.{(registers[address] // 100) % 100}.{registers[address] % 100}"
 
+def version_padded(address, registers):
+    major = registers[address] // 10000
+    minor = (registers[address] // 100) % 100
+    patch = registers[address] % 100
+    return f"{major}.{minor:02d}.{patch:02d}"
 
 def accumulated_kwh(address, registers):
     return registers[address] * 1000 + registers[address + 1] * 0.1
@@ -404,8 +409,8 @@ def convert_pv50_colex(registers):
     # Identification from native MUST registers exposed through CoLex.
     result["InverterMachineType"] = model(55, registers)
     result["InverterNativeSerialNumber"] = serial(57, registers)
-    result["InverterHardwareVersion"] = version(59, registers)
-    result["InverterSoftwareVersion"] = version(60, registers)
+    result["InverterHardwareVersion"] = version_padded(59, registers)
+    result["InverterSoftwareVersion"] = version_padded(60, registers)
 
     # Use the native serial initially.
     # __init__.py will replace it with the configured physical serial number
