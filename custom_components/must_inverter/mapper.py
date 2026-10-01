@@ -407,10 +407,10 @@ def convert_pv50_colex(registers):
     result["InverterHardwareVersion"] = version(59, registers)
     result["InverterSoftwareVersion"] = version(60, registers)
 
-    # Temporary Home Assistant unique identifier.
-    # Native serial is 0xFFFFFFFF on this inverter, so keep fallback until
-    # a unique CoLex/node identifier is implemented.
-    result["InverterSerialNumber"] = 1
+    # Use the native serial initially.
+    # __init__.py will replace it with the configured physical serial number
+    # when the inverter reports an invalid value such as 0xFFFFFFFF.
+    result["InverterSerialNumber"] = result["InverterNativeSerialNumber"]
 
     # CoLex 40001-40010 -> offsets 0-9
     result["DCRelayState"] = int16(0, registers)
