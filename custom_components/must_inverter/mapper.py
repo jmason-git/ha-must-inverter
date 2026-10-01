@@ -401,9 +401,15 @@ def convert_pv50_colex(registers):
 
     result = {}
 
-    # Identification.
-    # CoLex does not currently expose the native MUST identification registers.
-    result["InverterMachineType"] = "pv50_colex"
+    # Identification from native MUST registers exposed through CoLex.
+    result["InverterMachineType"] = model(55, registers)
+    result["InverterNativeSerialNumber"] = serial(57, registers)
+    result["InverterHardwareVersion"] = version(59, registers)
+    result["InverterSoftwareVersion"] = version(60, registers)
+
+    # Temporary Home Assistant unique identifier.
+    # Native serial is 0xFFFFFFFF on this inverter, so keep fallback until
+    # a unique CoLex/node identifier is implemented.
     result["InverterSerialNumber"] = 1
 
     # CoLex 40001-40010 -> offsets 0-9

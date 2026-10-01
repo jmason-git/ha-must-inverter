@@ -315,7 +315,7 @@ class MustInverter:
 
         elif self.model == MODEL_PV50_COLEX:
             registersAddresses = [
-                (0, 54, convert_pv50_colex),  # CoLex Holding Registers 40001-40055
+                (0, 60, convert_pv50_colex),  # CoLex Holding Registers 40001-40061
             ]
 
         else:
