@@ -14,6 +14,7 @@ CONF_RETRIES = "retries"
 CONF_RECONNECT_DELAY = "reconnect_delay"
 CONF_RECONNECT_DELAY_MAX = "reconnect_delay_max"
 CONF_DEVICE_ID = "device_id"
+CONF_INVERTER_SERIAL_NUMBER = "inverter_serial_number"
 
 DEFAULT_SCAN_INTERVAL = 15
 DEFAULT_DEVICE_ID = 0x04

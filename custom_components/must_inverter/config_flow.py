@@ -31,6 +31,7 @@ from .const import (
     CONF_RECONNECT_DELAY,
     CONF_RECONNECT_DELAY_MAX,
     CONF_DEVICE_ID,
+    CONF_INVERTER_SERIAL_NUMBER,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -63,6 +64,7 @@ UDP_SCHEMA = vol.Schema(
 COMMON_SCHEMA = vol.Schema(
     {
         vol.Optional(CONF_NAME): str,
+        vol.Optional(CONF_INVERTER_SERIAL_NUMBER): str,
         vol.Required(CONF_MODEL, default="autodetect"): selector(
             {
                 "select": {

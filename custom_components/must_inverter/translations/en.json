@@ -7,12 +7,14 @@
         "description": "Configure your Must Inverter integration.",
         "data": {
           "name": "Name",
+          "inverter_serial_number": "Inverter Serial Number",
           "model": "Model",
           "scan_interval": "Scan Interval (seconds)",
           "mode": "Connection type"
         },
         "data_description": {
           "name": "Leave empty to use the inverter model as name.",
+          "inverter_serial_number": "Physical serial number from the inverter label. Used as a stable identifier when the inverter does not provide a valid serial number over Modbus.",
           "model": "Leave in Auto Detect unless you're not seeing data that should be available for your device.",
           "scan_interval": "The interval in seconds to poll the inverter for data.",
           "mode": "The connection type to use to communicate with the inverter, usually via the included USB cable or via TCP/UDP for wireless connections."
@@ -72,13 +74,15 @@
         "title": "Common settings",
         "description": "Configure your Must Inverter integration.",
         "data": {
-          "name": "Name",
-          "model": "Model",
+        "name": "Name",
+        "inverter_serial_number": "Inverter Serial Number",
+        "model": "Model",
           "scan_interval": "Scan Interval (seconds)",
           "mode": "Connection type"
         },
         "data_description": {
           "name": "Leave empty to use the inverter model as name.",
+          "inverter_serial_number": "Physical serial number from the inverter label. Used as a stable identifier when the inverter does not provide a valid serial number over Modbus.",
           "model": "Leave in Auto Detect unless you're not seeing data that should be available for your device.",
           "scan_interval": "The interval in seconds to poll the inverter for data.",
           "mode": "The connection type to use to communicate with the inverter, usually via the included USB cable or via TCP/UDP for wireless connections."

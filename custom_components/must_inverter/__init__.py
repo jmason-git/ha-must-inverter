@@ -33,6 +33,7 @@ from .const import (
     CONF_RECONNECT_DELAY,
     CONF_RECONNECT_DELAY_MAX,
     CONF_DEVICE_ID,
+    CONF_INVERTER_SERIAL_NUMBER,
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_DEVICE_ID,
     get_sensors_for_model,
@@ -394,6 +395,19 @@ class MustInverter:
                 raise
             except:
                 _LOGGER.error("error reading modbus data at address %s", start, exc_info=True)
+
+        # Resolve inverter identity.
+        # Prefer the manually configured physical serial number when available.
+        # The PV50 tested unit reports 0xFFFFFFFF in native registers 20002/20003.
+        configured_serial = self._entry.options.get(CONF_INVERTER_SERIAL_NUMBER)
+
+        if self.model == MODEL_PV50_COLEX:
+            native_serial = self.data.get("InverterNativeSerialNumber")
+
+            if configured_serial and configured_serial.strip():
+                self.data["InverterSerialNumber"] = configured_serial.strip()
+            elif native_serial not in (None, 0, 0xFFFFFFFF):
+                self.data["InverterSerialNumber"] = native_serial
 
         _LOGGER.debug("finished reading modbus data, %s", read)
         self.registers = read
